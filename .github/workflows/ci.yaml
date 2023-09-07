@@ -25,10 +25,10 @@ jobs:
       run: npm test
 
     - name: Build and Push Docker image
-      env:
-        DOCKER_USERNAME: ${{ ayasaoudi }}  
-        DOCKER_PASSWORD: ${{ Saoudi@111 }} 
-      run: |
-        docker build -t ayasaoudi/myfirstimage:latest .
-        echo $Saoudi@111 | docker login -u $ayasaoudi --password-stdin
-        docker push ayasaoudi/myfirstimage:latest
+     env:
+       DOCKER_USERNAME: ${{ secrets.SA_SUPER_SECRET }}
+       DOCKER_PASSWORD: ${{ secrets.PASA_SUPER_SECRET }}  
+     run: |
+       docker build -t ayasaoudi/myfirstimage:latest .
+       echo $PASA_SUPER_SECRET | docker login -u $SA_SUPER_SECRET --password-stdin
+       docker push  ayasaoudi/myfirstimage:latest
