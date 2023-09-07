@@ -29,10 +29,9 @@ jobs:
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
       run: |
         
-        sudo docker build -t homeworkImage:latest .
+         docker build -t homeworkImage:latest .
 
         echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
         docker push homeworkImage:latest
-
 
