@@ -23,3 +23,11 @@ jobs:
 
     - name: Run tests
       run: npm test
+      
+      build_and_push_docker_image:
+  stage: deploy
+  script:
+    - # Commandes pour build et push l'image Docker
+  only:
+    - feature/votre-prénom-votre-nom/add-docker-build-push-step-to-ci
+
