@@ -30,3 +30,12 @@ jobs:
               username: ${{secrets.DOCKER_HUB_USERNAME}}
               password: ${{secrets.DOCKER_HUB_PASSWORD}}
 
+
+-name: Building image
+ run: docker build -t my_first_image:1 -f Dockerfile .
+
+-name: Tagging  image to DockerHub
+ run: docker tag my_first_image:1 oussama111111/tuto_docker:11
+
+-name: pushing image
+ run: docker push oussama111111/tuto_docker:tagname
