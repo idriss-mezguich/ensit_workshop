@@ -1,0 +1,12 @@
+
+stages:
+  - build
+  - test
+  - deploy
+
+build_my_web_server_image:
+  stage: build
+  script:
+    - docker build -t my_web_server:latest .
+    - docker login -u $nourlajnef -p $2050 Docker
+    - docker push my_web_server:latest
