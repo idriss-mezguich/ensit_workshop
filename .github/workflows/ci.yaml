@@ -3,7 +3,7 @@ name: Node.js CI
 on:
   push:
     branches:
-      - Dev  # Change this to your main branch name
+      - dev  # Change this to your main branch name
 
 jobs:
   build:
@@ -29,6 +29,6 @@ jobs:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}  # You need to set this secret in your GitHub repository
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}  # You need to set this secret in your GitHub repository
       run: |
-        docker build -t test-image:v1 .
+        docker build -t sourour-image:v1 .
         echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-        docker push test-image:v1
+        docker push sourour-image:v1
