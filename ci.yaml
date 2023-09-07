@@ -3,14 +3,13 @@ stages:
   - build
   - deploy
 
-# ... autres étapes du pipeline CI ...
 
 # Étape pour le build et le push de l'image Docker
 docker_build_and_push:
   stage: build
   script:
-    - docker build -t nom-de-votre-image:tag .
+    - docker build -t image:1.0 .
     - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD  
-    - docker push nom-de-votre-image:tag
+    - docker push image:1.0
   only:
     - feature/hajer/add-docker-buikd-push-step-to-ci
