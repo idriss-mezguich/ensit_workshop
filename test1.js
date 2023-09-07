@@ -1,4 +1,0 @@
-function aaa()
-{
-   aaaaaaaaa bbbbb
-}
