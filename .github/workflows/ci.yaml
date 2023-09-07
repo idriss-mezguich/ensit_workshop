@@ -3,7 +3,8 @@ name: Node.js CI
 on:
   push:
     branches:
-      - main  # Change this to your main branch name
+      - main  
+      - feature/mayssabejaoui/add-docker-build-push-step-to-ci
 
 jobs:
   build:
@@ -23,3 +24,19 @@ jobs:
 
     - name: Run tests
       run: npm test
+   
+    - name: Build Docker image
+      run: |
+        docker build -t image1:latest .
+      working-directory: ./  
+
+    - name: Log in to Docker Hub
+      run: docker login -u mayssabejaoui -p narnarnar2019
+
+    - name: Push Docker image
+      run: |
+        docker push image1:latest
+      working-directory: ./
+
+    - name: Cleanup Docker credentials
+      run: docker logout
