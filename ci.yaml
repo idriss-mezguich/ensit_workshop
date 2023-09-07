@@ -1,12 +1,19 @@
-
-stages:
-  - build
-  - test
-  - deploy
-
-build_my_web_server_image:
-  stage: build
-  script:
-    - docker build -t my_web_server:latest .
-    - docker login -u $nourlajnef -p $2050 Docker
-    - docker push my_web_server:latest
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: html-app-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: html-app
+  template:
+    metadata:
+      labels:
+        app: html-app
+    spec:
+      containers:
+      - name: html-app-container
+        image: nginx
+        ports:
+        - containerPort: 80
