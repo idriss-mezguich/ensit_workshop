@@ -8,7 +8,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    
+    env:
+      DOCKER_USERNAME: sourourmethni
+      DOCKER_PASSWORD: sourourdocker01
+    
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -25,10 +29,8 @@ jobs:
       run: npm test
  # Add the Docker build and push step below
     - name: Build and push Docker image
-      env:
-        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}  # You need to set this secret in your GitHub repository
-        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}  # You need to set this secret in your GitHub repository
       run: |
         docker build -t test-image:v1 .
         echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         docker push test-image:v1
+   
