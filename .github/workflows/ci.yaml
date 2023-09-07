@@ -16,10 +16,26 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: 18  # Change this to your Node.js version
+        node-version: 18
 
     - name: Install dependencies
       run: npm install
 
     - name: Run tests
       run: npm test
+
+    - name: Login to DockerHub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKER_HUB_USERNAME }}
+        password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+
+    - name: Building image
+      run: docker build -t my_first_image:1 -f Dockerfile .
+
+    - name: Tagging image to DockerHub
+      run: docker tag my_first_image:1 oussama111111/tuto_docker:11
+
+    - name: Pushing image
+      run: docker push oussama111111/tuto_docker:11
+
