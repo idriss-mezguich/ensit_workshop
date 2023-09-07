@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GitHub Actions CI Test</title>
+</head>
+<body>
+    <h1>Test GitHub Actions CI Workflow</h1>
+    <form action="/github/webhook" method="post">
+        <label for="branch">Select Branch:</label>
+        <select name="branch" id="branch">
+            <option value="main">main</option>
+        </select>
+        <br>
+        <button type="submit">Simulate Push</button>
+    </form>
+</body>
+</html>
