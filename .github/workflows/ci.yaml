@@ -10,16 +10,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: 18  # Change this to your Node.js version
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18  # Change this to your Node.js version
 
-    - name: Install dependencies
-      run: npm install
+      - name: Install dependencies
+        run: npm install
 
-    - name: Run tests
-      run: npm test
+      - name: Run tests
+        run: npm test
+
+      # Ajoutez une nouvelle étape pour construire et pousser l'image Docker
+      - name: Build and push Docker image
+        run:
+          docker build -t nom-de-votre-image:tag .
+          docker login -u hazembensaid -p hazem123456789
+          docker push MyNodeJs:1.0
