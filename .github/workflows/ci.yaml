@@ -26,13 +26,15 @@ jobs:
 
     - name: Build Docker image 
       run: docker build -t sourour-image:v1 .
+    
+    - name: Tag Docker image 
+      run:  docker tag sourour-image:v1 ${{ secrets.DOCKER_USERNAME }}/sourour-image:v2
 
     - name: Login 
       run:  docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Push Docker image 
-      run:  docker push sourour-image:v1
-
+      run:  docker push ${{ secrets.DOCKER_USERNAME }}/sourour-image:v2
         
         
         
