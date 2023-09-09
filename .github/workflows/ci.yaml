@@ -24,12 +24,9 @@ jobs:
     - name: Run tests
       run: npm test
 
-    - name: Build and push Docker image
-      env:
-        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }} 
-        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}  
+    - name: Build and push Docker image 
       run: |
         docker build -t sourour-image:v1 .
-        echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+        docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
         docker push sourour-image:v1
 
