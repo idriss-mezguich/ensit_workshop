@@ -1,32 +1,48 @@
-name: Docker CI/CD
+name: Node.js CI
 
 on:
   push:
     branches:
-      - main  # Change this branch according to your setup
+      - feature/alaa-hmem/add-docker-build-push-step-to-ci # Change this to your main branch name
 
 jobs:
-  build-and-push:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      - name: Set up Docker Buildx
-        run: |
-          docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
-          docker buildx create --use
-        shell: bash
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: 16  # Change this to your Node.js version
 
-      - name: Build and Push Docker Image
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-        run: |
-          docker buildx build --platform linux/amd64,linux/arm64 -t hmem/hmem-img:latest .
-          docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-          docker buildx build --push --platform linux/amd64,linux/arm64 -t hmem/hmem-img:latest .
-      - name: Cleanup
-        run: |
-          docker buildx rm
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run tests
+      run: npm test
+
+    - name: Build and Push Docker Image
+      run: docker build -t newimg
+
+    - name: Log in to the Docker Hub 
+      run : docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD}}
+
+    - name: Tag Docker Image 
+      run: docker tag newimg ${{ secrets.DOCKER_USERNAME }}/newimg:latest
+
+    - name: push Docker image to Docker Hub
+      run : docker push ${{secrets.DOCKER_USERNAME}}/newimg:latest 
+    
+
+
+
+      # if: startsWith(github.ref, 'refs/heads/feature/')
+      # uses: docker/build-push-action@v2
+      # with:
+      #   context: .  # Build context, assumes Dockerfile is in the root.
+      #   file: ./ensit_workshop/Dockerfile  # Path to your Dockerfile
+      #   push: true
+      #   tags: alaahmem/newimg:latest
