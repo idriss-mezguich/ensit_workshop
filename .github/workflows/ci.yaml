@@ -3,7 +3,7 @@ name: Node.js CI
 on:
   push:
     branches:
-      - main  # Change this to your main branch name
+      - master  # Change this to your main branch name
 
 jobs:
   build:
@@ -16,10 +16,30 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: 18  # Change this to your Node.js version
+        node-version: 16  # Change this to your Node.js version
 
     - name: Install dependencies
       run: npm install
 
     - name: Run tests
       run: npm test
+
+    - name: Build and Push Docker Image
+      run: docker build -t myimage
+      
+
+    - name: Log in to the Docker Hub 
+      run : docker login -u rawya2000 -p rawya@2000
+  
+    - name: Tag Docker Image 
+      run: docker tag newimg rawya2000/myimage:latest
+     
+
+    - name: push Docker image to Docker Hub
+      run : docker push rawya2000/myimage:latest 
+
+
+
+
+     
+Footer
