@@ -1,25 +1,32 @@
-name: Node.js CI
+name: Docker CI/CD
 
 on:
   push:
     branches:
-      - main  # Change this to your main branch name
+      - main  # Change this branch according to your setup
 
 jobs:
-  build:
+  build-and-push:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout Repository
+        uses: actions/checkout@v2
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: 18  # Change this to your Node.js version
+      - name: Set up Docker Buildx
+        run: |
+          docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+          docker buildx create --use
+        shell: bash
 
-    - name: Install dependencies
-      run: npm install
-
-    - name: Run tests
-      run: npm test
+      - name: Build and Push Docker Image
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        run: |
+          docker buildx build --platform linux/amd64,linux/arm64 -t $DOCKER_USERNAME/hmem-img:latest .
+          docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+          docker buildx build --push --platform linux/amd64,linux/arm64 -t $DOCKER_USERNAME/hmem-img:latest .
+      - name: Cleanup
+        run: |
+          docker buildx rm
