@@ -4,7 +4,7 @@ name: Node.js CI
 on:
   push:
     branches:
-      - feature/alaa-hmem/add-docker-build-push-step-to-ci # Change this to your main branch name
+      - main # Change this to your main branch name
 
 jobs:
   build:
@@ -17,7 +17,7 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: 14  # Change this to your Node.js version
+        node-version: 16  # Change this to your Node.js version
 
     - name: Install dependencies
       run: npm install
