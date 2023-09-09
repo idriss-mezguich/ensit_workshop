@@ -24,7 +24,7 @@ jobs:
     - name: Run tests
       run: npm test
 
-  - name: Build and Push Docker image
+    - name: Build and Push Docker image
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
@@ -34,3 +34,4 @@ jobs:
         docker build -t $DOCKER_USERNAME/$IMAGE_NAME:$IMAGE_TAG .
         docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
         docker push $DOCKER_USERNAME/$IMAGE_NAME:$IMAGE_TAG
+
