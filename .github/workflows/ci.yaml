@@ -25,14 +25,14 @@ jobs:
       run: npm test
 
     - name: Build and Push Docker Image
-      run: docker build -t homeworkImage .
+      run: docker build -t homeworkimage .
 
     - name: Log in to Docker Hub
       run: docker login -u ${{ secrets.Docker_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD}}
      
     - name: Tag Docker Image
-      run: docker tag homeworkImage ${{ secrets.DOCKER_USERNAME }}/homeworkImage:latest 
+      run: docker tag homeworkimage ${{ secrets.DOCKER_USERNAME }}/homeworkimage:latest 
      
     - name: Push Docker image to Docher Hub
-      run: docker push ${{ secrets.DOCKER_USERNAME }}/homeworkImage:latest
+      run: docker push ${{ secrets.DOCKER_USERNAME }}/homeworkimage:latest
 
