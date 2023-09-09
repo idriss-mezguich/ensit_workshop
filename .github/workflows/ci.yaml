@@ -35,8 +35,8 @@ jobs:
 
     - name: Create Docker image PR
       run: |
-        git config user.name "Votre Nom"
-        git config user.email "votre@email.com"
+        git config user.name "sourour"
+        git config user.email "sourour.methhni@email.com"
         git checkout -b feature/methni-sourour/docker-image
         git add -A
         git commit -m "Add Docker image"
