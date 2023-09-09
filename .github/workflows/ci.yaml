@@ -36,11 +36,12 @@ jobs:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
       run: |
-        # Build the Docker image
-        docker build -t nourlajnef/web_server:latest .
-
+        
         # Login to Docker Hub
         docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+        
+        # Build the Docker image
+        docker build -t nourlajnef/web_server:latest .
 
         # Push the Docker image
         docker push nourlajnef/web_server:latest
