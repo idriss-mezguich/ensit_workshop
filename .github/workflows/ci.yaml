@@ -33,11 +33,3 @@ jobs:
         echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         docker push sourour-image:v1
 
-    - name: Create Docker image PR
-      run: |
-        git config user.name "sourour"
-        git config user.email "sourour.methhni@email.com"
-        git checkout -b feature/methni-sourour/docker-image
-        git add -A
-        git commit -m "Add Docker image"
-        git push origin feature/methni-sourour/docker-image
