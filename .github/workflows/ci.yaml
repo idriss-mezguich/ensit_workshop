@@ -1,10 +1,3 @@
-name: Node.js CI
-
-on:
-  push:
-    branches:
-      - main  # Change this to your main branch name
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -23,16 +16,16 @@ jobs:
 
     - name: Run tests
       run: npm test
-    
+
     - name: Build and Push Docker Image
       run: docker build -t image .
 
-    - name: Log in to Docher Hub
-      run: docker login -u ${{ secrets.Docker_sec }} -p ${{ secrets.Docker_pass }}
-
+    - name: Log in to Docker Hub
+      run: docker login -u ${{ secrets.Docker_sec }} -p ${{ secrets.DOCKER_pass }}
+     
     - name: Tag Docker Image
-      run: docker tag myimage ${{ secrets.Docker_sec  }}/image:latest
-
+      run: docker tag image ${{ secrets.Docker_sec }}/image:latest 
+     
     - name: Push Docker image to Docker Hub
-      run: docker push ${{ secrets.Docker_sec  }}/image:latest
+      run: docker push ${{ secrets.Docker_sec }}/image:latest
 
