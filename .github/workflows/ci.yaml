@@ -1,25 +1,15 @@
-name: Node.js CI
+stages:
+  - test
+  - build
+  - deploy
 
-on:
-  push:
-    branches:
-      - main  # Change this to your main branch name
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Setup Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: 18  # Change this to your Node.js version
-
-    - name: Install dependencies
-      run: npm install
-
-    - name: Run tests
-      run: npm test
+# Étape pour le build et le push de l'image Docker
+docker_build_and_push:
+  stage: build
+  script:
+    - docker build -t image:latest .
+    - docker login -u ${{secrets.Docker_sec}} -p ${{secrets.Docker_pass}} 
+    - docker push image:latest
+  only:
+    - feature/hajer/add-docker-buikd-push-step-to-ci
