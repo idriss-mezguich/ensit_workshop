@@ -9,7 +9,7 @@ docker_build_and_push:
   stage: build
   script:
     - docker build -t image:latest .
-    - docker login -u $hajerjlali -p $123hajerr123  
+    - docker login -u ${{secrets.Docker_sec}} -p ${{secrets.Docker_pass}} 
     - docker push image:latest
   only:
     - feature/hajer/add-docker-buikd-push-step-to-ci
