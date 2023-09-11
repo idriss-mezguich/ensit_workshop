@@ -1,26 +1,38 @@
-steps :
-- name: Checkout code
-  uses: actions/checkout@v2
+name: Node.js CI
 
-- name: Setup Node.js
-  uses: actions/setup-node@v2
-  with:
-    node-verion: 18
+on:
+  push:
+    branches:
+      - main  # Change this to your main branch name
 
-- name: Install dependencies
-  run: npm install
+jobs:
+  build:
+    runs-on: ubuntu-latest
 
-- name: Run tests
-  run: npm test 
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-- name: Build and Push Docker Image
-  run: docker build -t image .
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'  # Change this to your Node.js version
 
-- name: Log in to Docker Hub 
-  run: docker login -u ${{secrets.Docker_sec}} -p  ${{secrets.Docker_pass}}
+    - name: Install dependencies
+      run: npm install
 
-- name: Tag Docker Image 
-  run: docker tag image ${{secrets.Docker_sec}}/image:latest
+    - name: Run tests
+      run: npm test
+    
+    - name: Build and Push Docker Image
+      run: docker build -t image .
 
-- name: Push Docker image to Docker Hub 
-  run: docker push ${{secrets.Docker_sec}}/image:latest
+    - name: Log in to Docher Hub
+      run: docker login -u ${{ secrets.Docker_sec }} -p ${{ secrets.Docker_pass }}
+
+    - name: Tag Docker Image
+      run: docker tag myimage ${{ secrets.Docker_sec  }}/image:latest
+
+    - name: Push Docker image to Docker Hub
+      run: docker push ${{ secrets.Docker_sec  }}/image:latest
+
