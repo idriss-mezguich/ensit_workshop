@@ -3,7 +3,7 @@ name: Node.js CI
 on:
   push:
     branches:
-      - my-branch
+      - feature/haythem-mastour/add-docker-build-push-step-to-ci
 
 jobs:
   build:
