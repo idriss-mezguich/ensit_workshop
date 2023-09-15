@@ -28,6 +28,6 @@ jobs:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME  }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
       run:
-	      docker build -t ensit_workshop_ali_dorboz .
+	      docker build -t ensit_workshop_haythem_mastour .
         docker login -u '$DOCKER_USERNAME' -p '$DOCKER_PASSWORD'
-        docker push alidorboz/ensit_workshop_ali_dorboz:latest
+        docker push Haythem-Mastour/ensit_workshop:latest
