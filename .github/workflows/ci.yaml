@@ -1,9 +1,11 @@
+
+Abir Tmani
 name: Node.js CI
 
 on:
   push:
     branches:
-      - main  # Change this to your main branch name
+      -b1
 
 jobs:
   build:
@@ -16,10 +18,22 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: 18  # Change this to your Node.js version
+        node-version: '16' 
 
     - name: Install dependencies
       run: npm install
 
     - name: Run tests
       run: npm test
+    
+    - name: Build and Push Docker Image
+      run: docker build -t abira:latest .
+
+    - name: Log in to Docher Hub
+      run: docker login -u abirra -p dckr_pat_slgxg2pHp3mqzMRw1CACSMNCjfI
+
+    - name: Tag Docker Image
+      run: docker tag abira:latest abira/dockerimage
+
+    - name: Push Docker image to Docker Hub
+      run: docker push abirra/dockerimage:latest
